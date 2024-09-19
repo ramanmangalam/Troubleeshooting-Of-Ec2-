@@ -7,32 +7,40 @@ EC2 stands for Elastic Cloud Compute. It is a compute service where users can re
 What is User Data?
 User Data is a metadata field of an EC2 instance that allows custom scripts or commands to run automatically when the instance is launched.
 
-In This Case
+In This Case:
+
 I created an EC2 instance in the US-East region using default settings. In the advanced settings, under User Data, I added a script to run at the time of instance launch.
 
-Troubleshooting Steps
+Troubleshooting Steps:
+
 I encountered two issues with this EC2 instance, which I have since resolved:
 
 Issue: HTTP Server Not Accessible on EC2 Instance
-Problem Description: I launched an EC2 instance using a user data script to install and configure an Apache HTTP server. Despite the successful launch, I couldn’t access the web server using the public IP address of the instance.
+
+Problem Description: I launched an EC2 instance using a user data script to install and configure an Apache HTTP server. Despite the successful launch,
+I couldn’t access the web server using the public IP address of the instance.
 
 Steps to Reproduce:
 
 Launched an Amazon Linux 2 EC2 instance.
 
 Used the following user data script to install and start Apache:
+
 #!/bin/bash
 yum update -y
 yum install -y httpd
 systemctl start httpd
 systemctl enable httpd
+
 echo "<h1>Hello World from $(hostname -f)</h1>" > /var/www/html/index.html
 
 Attempted to access the instance via http://<instance-public-ip> but received no response.
 
-Expected Behavior: When navigating to the public IP of the EC2 instance in a browser, I expected to see a webpage displaying the text: "Hello World from <hostname>."
+Expected Behavior:
+When navigating to the public IP of the EC2 instance in a browser, I expected to see a webpage displaying the text: "Hello World from <hostname>."
 
-Actual Behavior: The browser returned a timeout or connection error, indicating that the HTTP server was unreachable.
+Actual Behavior:
+The browser returned a timeout or connection error, indicating that the HTTP server was unreachable.
 
 Root Cause:
 The issue occurred because the security group attached to the EC2 instance did not have the appropriate inbound rules for HTTP (port 80) and HTTPS (port 443) traffic.
@@ -58,6 +66,7 @@ Used PuTTY to connect to the EC2 instance using the public IP address.
 Checking Port Statuses:
 
 Executed the following commands to check if ports 22 (SSH) and 443 (HTTPS) were listening:
+
 sudo netstat -tuln | grep 22
 sudo netstat -tuln | grep 443
 The output confirmed that port 22 was open and listening, but port 443 was not.
