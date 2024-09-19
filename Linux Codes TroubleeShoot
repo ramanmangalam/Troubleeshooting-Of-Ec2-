@@ -1,0 +1,5 @@
+Sudo netstat - tulpn  | grep 22 - To check the Port running or not 
+
+Sudo Yum install mod_ssl - It install the latest package that help to run in the port of HTTPS
+
+Sudo systemctl restart httpd - It will restart our System
