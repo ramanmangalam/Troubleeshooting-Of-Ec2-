@@ -43,12 +43,15 @@ echo "<h1>Hello World from $(hostname -f)</h1>" > /var/www/html/index.html
 Attempted to access the instance via http://<instance-public-ip> but received no response.
 
 Expected Behavior:
+
 When navigating to the public IP of the EC2 instance in a browser, I expected to see a webpage displaying the text: "Hello World from <hostname>."
 
 Actual Behavior:
+
 The browser returned a timeout or connection error, indicating that the HTTP server was unreachable.
 
 Root Cause:
+
 The issue occurred because the security group attached to the EC2 instance did not have the appropriate inbound rules for HTTP (port 80) and HTTPS (port 443) traffic.
 
 Solution:
