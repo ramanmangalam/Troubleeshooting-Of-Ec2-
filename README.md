@@ -15,9 +15,11 @@ Troubleshooting Steps:
 
 I encountered two issues with this EC2 instance, which I have since resolved:
 
-Issue: HTTP Server Not Accessible on EC2 Instance
+Issue: 
+HTTP Server Not Accessible on EC2 Instance
 
-Problem Description: I launched an EC2 instance using a user data script to install and configure an Apache HTTP server. Despite the successful launch,
+Problem Description:
+I launched an EC2 instance using a user data script to install and configure an Apache HTTP server. Despite the successful launch,
 I couldn’t access the web server using the public IP address of the instance.
 
 Steps to Reproduce:
@@ -36,6 +38,7 @@ systemctl start httpd
 systemctl enable httpd
 
 echo "<h1>Hello World from $(hostname -f)</h1>" > /var/www/html/index.html
+
 
 Attempted to access the instance via http://<instance-public-ip> but received no response.
 
